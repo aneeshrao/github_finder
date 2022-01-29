@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Routes, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import About from './components/About';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -22,7 +22,7 @@ function App() {
   const searchName = async (text) => {
     const res = await axios.get(`https://api.github.com/search/users?q=${text}`)
     setUsersList(res.data.items);
-    setShowClear(true);
+    setShowClear(!showClear);
   }
 
   const clearUser = () => {
@@ -33,7 +33,9 @@ function App() {
     <Router>
       <Navbar />
       <div className="container">
-          <Routes>
+        <Search searchName={searchName} clearUser={clearUser} showClear={usersList.length > 1 ? true : false}  />
+        <Users users={usersList} />
+          <Switch>
             <Route exact path="/home" render = {
               props => (
                 <>
@@ -42,11 +44,9 @@ function App() {
                 </>
               )
             } />
-          </Routes>
-          <Routes>
             <Route exact path="/about" element={<About />} />
-            <Route exact path="/user/:anything" element={<UserDetailsPage />} />
-          </Routes>
+            <Route exact path="/user/:login" element={<UserDetailsPage />} />
+          </Switch>
       </div>
     </Router>
   );
