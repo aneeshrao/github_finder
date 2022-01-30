@@ -11,6 +11,8 @@ import UserDetailsPage from './components/UserDetailsPage';
 function App() {
   const [usersList, setUsersList] = useState([]);
   const [showClear, setShowClear] = useState(false);
+  const [user, setUser] = useState({});
+  const [publicRepo, setPublicRepo] = useState([]);
 
   // useEffect(async() => {
   //     const response = await axios('https://api.github.com/users');
@@ -18,7 +20,21 @@ function App() {
   //     //update the users state from empty to some data
   //     setUsersList(response.data);
   // }, [])
+  
+  //Fetching the public repos
+  const getPublicRepo = async (user) => {
+    const res = await axios.get(`https://api.github.com/users/${user}/repos?per_page=7&sort=asc`);
+    setPublicRepo(res.data);
+  }
 
+  //fetching the user details
+  const getUserDetail = async (login) => {
+    const res = await axios.get(`https://api.github.com/users/${login}`)
+    console.log(res);
+    setUser(res.data);
+  }
+
+  //searching the user
   const searchName = async (text) => {
     const res = await axios.get(`https://api.github.com/search/users?q=${text}`)
     setUsersList(res.data.items);
@@ -34,16 +50,22 @@ function App() {
       <Navbar />
       <div className="container">
           <Switch>
-            <Route exact path="/home" render = {
+            <Route exact path="/" render = {
               props => (
                 <div>
-                <Search searchName={searchName} clearUser={clearUser} showClear={usersList.length > 1 ? true : false} />
-                <Users users={usersList} />
+                  <Search searchName={searchName} clearUser={clearUser} showClear={usersList.length > 1 ? true : false} />
+                  <Users users={usersList} />
                 </div>
               )
-            } />           
-            <Route exact path="/about" element={<About />} />
-            <Route exact path="/user/:anything" element={<UserDetailsPage />} />
+            } />          
+            <Route exact path="/user/:anything"  render = {
+              props => (
+              <div>
+                <UserDetailsPage user={user} getUserDetail={getUserDetail} {...props} getRepo={getPublicRepo} repo={publicRepo}></UserDetailsPage>
+              </div>
+              )
+            } />
+            <Route exact path="/about" component={About} />
           </Switch>
       </div>
     </Router>
