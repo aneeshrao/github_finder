@@ -8,7 +8,7 @@ const Navbar = () => {
             <nav className="navbar bg-primary" >
                 <h1 className="heading-title">
                     <i className="fa fa-github"></i>
-                    Github Finder PROJECT
+                    Github Finder
                 </h1>
                 <ul>
                     <li>

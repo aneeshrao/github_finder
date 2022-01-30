@@ -1,6 +1,6 @@
 {
-  "homepage": "https://aneeshrao.github.io/github_finder",
-  "name": "my-app",
+  "homepage": "http://aneeshrao.github.io/github_finder",
+  "name": "github_finder",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
