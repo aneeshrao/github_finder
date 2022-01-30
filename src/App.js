@@ -13,14 +13,7 @@ function App() {
   const [showClear, setShowClear] = useState(false);
   const [user, setUser] = useState({});
   const [publicRepo, setPublicRepo] = useState([]);
-
-  // useEffect(async() => {
-  //     const response = await axios('https://api.github.com/users');
-  //     console.log(response.data);
-  //     //update the users state from empty to some data
-  //     setUsersList(response.data);
-  // }, [])
-  
+ 
   //Fetching the public repos
   const getPublicRepo = async (user) => {
     const res = await axios.get(`https://api.github.com/users/${user}/repos?per_page=5&sort=asc`);
