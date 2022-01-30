@@ -23,7 +23,7 @@ function App() {
   
   //Fetching the public repos
   const getPublicRepo = async (user) => {
-    const res = await axios.get(`https://api.github.com/users/${user}/repos?per_page=7&sort=asc`);
+    const res = await axios.get(`https://api.github.com/users/${user}/repos?per_page=5&sort=asc`);
     setPublicRepo(res.data);
   }
 

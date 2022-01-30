@@ -56,7 +56,9 @@ const UserDetailsPage = (props) => {
                 <div className="badge badge-danger">Public repos:{props.user.public_repos}</div>
                 <div className="badge badge-dark">Public gists:{props.user.public_gists}</div>
             </div>
-            <RepoList repos = {props.repo}/>
+            <div className="card">
+                <RepoList repos = {props.repo}/>
+            </div>
         </>
     )
 }
