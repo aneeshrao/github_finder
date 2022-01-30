@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import About from './components/About';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Users from './components/Users';
 import Search from './components/Search';
 import UserDetailsPage from './components/UserDetailsPage';
@@ -33,19 +33,17 @@ function App() {
     <Router>
       <Navbar />
       <div className="container">
-        <Search searchName={searchName} clearUser={clearUser} showClear={usersList.length > 1 ? true : false}  />
-        <Users users={usersList} />
           <Switch>
             <Route exact path="/home" render = {
               props => (
-                <>
-                <Search searchName={searchName} clearUser={clearUser} showClear={showClear} />
+                <div>
+                <Search searchName={searchName} clearUser={clearUser} showClear={usersList.length > 1 ? true : false} />
                 <Users users={usersList} />
-                </>
+                </div>
               )
-            } />
+            } />           
             <Route exact path="/about" element={<About />} />
-            <Route exact path="/user/:login" element={<UserDetailsPage />} />
+            <Route exact path="/user/:anything" element={<UserDetailsPage />} />
           </Switch>
       </div>
     </Router>
